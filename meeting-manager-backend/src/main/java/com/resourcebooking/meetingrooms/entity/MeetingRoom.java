@@ -1,6 +1,10 @@
 package com.resourcebooking.meetingrooms.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
+@Entity
 public class MeetingRoom extends NamedEntity{
 	
 	private int capacity;
@@ -10,6 +14,12 @@ public class MeetingRoom extends NamedEntity{
 	private String ipPhoneNumber;
 	
 	private String email;
+	
+	@ManyToOne
+	private Floor floor;
+	
+	@OneToOne
+	private Booking booking;
 
 	public int getCapacity() {
 		return capacity;
@@ -41,6 +51,14 @@ public class MeetingRoom extends NamedEntity{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Floor getFloor() {
+		return floor;
+	}
+
+	public void setFloor(Floor floor) {
+		this.floor = floor;
 	}
 	
 }

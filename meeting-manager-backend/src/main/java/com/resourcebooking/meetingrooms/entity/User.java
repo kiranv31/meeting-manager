@@ -1,13 +1,24 @@
 package com.resourcebooking.meetingrooms.entity;
 
-import javax.persistence.Enumerated;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
 public class User extends NamedEntity {
 	
 	@Enumerated
 	private UserRole userRole;
 	private String emailId;
 	private String phone;
+	
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+	private Set<Booking> booking = new HashSet<>();
 
 	public UserRole getUserRole() {
 		return userRole;

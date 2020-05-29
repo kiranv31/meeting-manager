@@ -1,8 +1,12 @@
 package com.resourcebooking.meetingrooms.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class MeetingRoom extends NamedEntity{
@@ -18,8 +22,8 @@ public class MeetingRoom extends NamedEntity{
 	@ManyToOne
 	private Floor floor;
 	
-	@OneToOne
-	private Booking booking;
+	@OneToMany(mappedBy = "meetingRoom", cascade = CascadeType.ALL)
+	private Set<Booking> booking = new HashSet<>();
 
 	public int getCapacity() {
 		return capacity;
@@ -60,5 +64,34 @@ public class MeetingRoom extends NamedEntity{
 	public void setFloor(Floor floor) {
 		this.floor = floor;
 	}
+
+	public Set<Booking> getBooking() {
+		return booking;
+	}
+
+	public void setBooking(Set<Booking> booking) {
+		this.booking = booking;
+	}
 	
+	public MeetingRoom getUpdateCopy(MeetingRoom object) {
+		if(object.getBooking() == null)
+			object.setBooking(getBooking());
+		
+		if(object.getCapacity() == 0) 
+			object.setCapacity(getCapacity());
+		
+		if(object.getEmail() == null)
+			object.setEmail(getEmail());
+		
+		if(object.getFloor() == null)
+			object.setFloor(getFloor());
+		
+		if(object.getIpPhoneNumber() == null){
+			object.setIpPhoneNumber(getIpPhoneNumber());
+			
+		if(object.getName() == null)
+			object.setName(getName());
+		}
+		return object;
+	}
 }

@@ -1,37 +1,57 @@
 package com.resourcebooking.meetingrooms.controller;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.resourcebooking.meetingrooms.entity.User;
+import com.resourcebooking.meetingrooms.service.BaseService;
+import com.resourcebooking.meetingrooms.service.UserService;
 
-@RequestMapping({"/user"})
+@RequestMapping(value = "/user")
 @Controller
 public class UserController {
 	
-	@RequestMapping(value = "/list")
-	public String listUsers() {
-		return null;
+	private UserService service;
+	
+	public UserController(final UserService service){
+		this.service = service;
+	}
+	
+	@RequestMapping(value = "/list/all", method = RequestMethod.GET)
+	@ResponseBody
+	public Set<User> listUsers() {
+		return service.listAll();
 	}	
 	
-	@RequestMapping(value = "/get", method = RequestMethod.GET)
-	public String getUser(long id) {
-		return null;
+	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public User getUser(@PathVariable long id) {
+		return service.get(id);
 	}	
 	
-	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-	public String deleteUser(long id) {
-		return null;
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void deleteUser(@PathVariable long id) {
+		User user = service.get(id);
+		service.delete(user);
 	}
 	
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String deleteUser(User user) {
-		return null;
+	@RequestMapping(value = "/add/new", method = RequestMethod.POST)
+	@ResponseBody
+	public User addUser(User user) {
+		return service.save(user);
 	}
 	
-	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
-	public String deleteUser(User user, long id) {
-		return null;
+	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	@ResponseBody
+	public void updateUser(User user) {
+		service.update(user);
 	}
+
 }

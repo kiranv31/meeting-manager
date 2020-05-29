@@ -33,4 +33,18 @@ public class Floor extends NamedEntity{
 		this.rooms = rooms;
 	}
 	
+	public Floor getUpdateCopy(Floor object) {
+		if(object.getBuilding() == null)
+			object.setBuilding(getBuilding());
+		
+		if(object.getName() == null)
+			object.setName(getName());
+		
+		if(object.getRooms() == null)
+			object.setRooms(getRooms());
+		
+		return object;
+
+	}
+	
 }

@@ -21,4 +21,14 @@ public class Building extends NamedEntity{
 		this.floors = floors;
 	}
 	
+	public Building getUpdateCopy(Building object) {
+		if(object.getFloors() == null)
+			object.setFloors(getFloors());
+		
+		if(object.getName() == null)
+			object.setName(getName());
+		
+		return object;
+	}
+	
 }

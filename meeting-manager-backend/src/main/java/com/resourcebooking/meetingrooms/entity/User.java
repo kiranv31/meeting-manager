@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 public class User extends NamedEntity {
 	
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
 	private String emailId;
 	private String phone;
@@ -44,4 +45,19 @@ public class User extends NamedEntity {
 		this.phone = phone;
 	}
 
+	public User getUpadteCopy(User object) {
+		if(object.getName() == null) {
+			object.setName(getName());
+		}
+		if(object.getEmailId() == null) {
+			object.setEmailId(getEmailId());
+		}
+		if(object.getPhone() == null) {
+			object.setPhone(getPhone());
+		}
+		if(object.getUserRole() == null) {
+			object.setUserRole(getUserRole());
+		}
+		return object;
+	}
 }

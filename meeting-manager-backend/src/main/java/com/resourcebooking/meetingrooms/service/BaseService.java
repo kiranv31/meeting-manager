@@ -9,4 +9,5 @@ public interface BaseService<T, ID> {
 	 Set<T> listAll();
 	 void update(T object);
 	 void saveAll(Set<T> objects);
+	 void deleteById(ID id);
 }

@@ -94,4 +94,34 @@ public class Booking extends BaseEntity {
 		this.bookingStaus = bookingStaus;
 	}
 	
+	public Booking getUpdateCopy(Booking object) {
+		if(object.getBookingPurpose() == null)
+			object.setBookingPurpose(getBookingPurpose());
+		
+		if(object.getBookingStaus() == null)
+			object.setBookingStaus(getBookingStaus());
+		
+		if(object.getBookingType() == null)
+			object.setBookingType(getBookingType());
+		
+		if(object.getEnd() == null)
+			object.setEnd(getEnd());
+		
+		if(object.getStart() == null)
+			object.setStart(getStart());
+		
+		if(object.getMeetingRoom() == null) {
+			object.setMeetingRoom(getMeetingRoom());
+		}
+		
+		if(object.getOwner() == null)
+			object.setOwner(getOwner());
+		
+		if(object.getReccurBookingType() == null)
+			object.setReccurBookingType(getReccurBookingType());
+		
+		return object;
+		
+	}
+	
 }

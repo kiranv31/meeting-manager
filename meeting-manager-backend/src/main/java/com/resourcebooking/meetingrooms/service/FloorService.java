@@ -1,14 +1,15 @@
 package com.resourcebooking.meetingrooms.service;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
+
+import org.springframework.stereotype.Service;
 
 import com.resourcebooking.meetingrooms.entity.Floor;
 import com.resourcebooking.meetingrooms.repository.FloorRepository;
 
-
+@Service
 public class FloorService implements BaseService<Floor, Long>{
 
 	private FloorRepository repo;
@@ -24,11 +25,7 @@ public class FloorService implements BaseService<Floor, Long>{
 
 	@Override
 	public void delete(Floor object) {
-		Floor existing = get(object.getId());
-		if(existing.getId() != null) {
-			repo.delete(object);
-		}
-		
+		deleteById(object.getId());
 	}
 
 	@Override
@@ -56,6 +53,14 @@ public class FloorService implements BaseService<Floor, Long>{
 	@Override
 	public void saveAll(Set<Floor> objects) {
 		repo.saveAll(objects);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		Floor existing = get(id);
+		if(existing.getId() != null) {
+			repo.deleteById(existing.getId());
+		}
 	}
 
 }

@@ -1,13 +1,15 @@
 package com.resourcebooking.meetingrooms.service;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
+
+import org.springframework.stereotype.Service;
 
 import com.resourcebooking.meetingrooms.entity.Building;
 import com.resourcebooking.meetingrooms.repository.BuildingRepository;
 
+@Service
 public class BuildingService implements BaseService<Building, Long>{
 
 	private BuildingRepository repo;
@@ -23,8 +25,7 @@ public class BuildingService implements BaseService<Building, Long>{
 
 	@Override
 	public void delete(Building object) {
-		// TODO Auto-generated method stub
-		
+		deleteById(object.getId());
 	}
 
 	@Override
@@ -43,7 +44,7 @@ public class BuildingService implements BaseService<Building, Long>{
 	@Override
 	public void update(Building object) {
 		Building existing = get(object.getId());
-		if(existing.getId() != null && existing.getId().equals(object.getId())){
+		if(existing.getId() != null){
 			repo.save(existing.getUpdateCopy(object));
 		}
 	}
@@ -51,6 +52,14 @@ public class BuildingService implements BaseService<Building, Long>{
 	@Override
 	public void saveAll(Set<Building> objects) {
 		repo.saveAll(objects);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		Building existing = get(id);
+		if(existing.getId() != null){
+			repo.deleteById(id);
+		}
 	}
 
 }

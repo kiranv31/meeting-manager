@@ -25,9 +25,7 @@ public class UserService implements BaseService<User, Long>{
 
 	@Override
 	public void delete(User object) {
-		if(get(object.getId()).getId() != null){
-			repo.delete(object);
-		}
+		deleteById(object.getId());
 	}
 
 	@Override
@@ -55,6 +53,14 @@ public class UserService implements BaseService<User, Long>{
 	@Override
 	public void saveAll(Set<User> objects) {
 		repo.saveAll(objects);	
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		User existing = get(id);
+		if(existing.getId() != null){
+			repo.deleteById(id);
+		}		
 	}
 
 }

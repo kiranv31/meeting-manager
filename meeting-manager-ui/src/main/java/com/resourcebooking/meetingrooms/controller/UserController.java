@@ -23,35 +23,36 @@ public class UserController {
 		this.service = service;
 	}
 	
-	@RequestMapping(value = "/list/all", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	public Set<User> listUsers() {
 		return service.listAll();
 	}	
 	
-	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public User getUser(@PathVariable long id) {
 		return service.get(id);
 	}	
 	
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public void deleteUser(@PathVariable long id) {
 		User user = service.get(id);
 		service.delete(user);
 	}
 	
-	@RequestMapping(value = "/add/new", method = RequestMethod.POST)
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	@ResponseBody
 	public User addUser(User user) {
 		return service.save(user);
 	}
 	
-	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public void updateUser(User user) {
-		service.update(user);
+	public void updateUser(User user, @PathVariable Long id) {
+		if(user.getId().equals(id))
+			service.update(user);
 	}
 
 }

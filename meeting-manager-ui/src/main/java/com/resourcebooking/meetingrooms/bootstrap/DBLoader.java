@@ -32,6 +32,7 @@ public class DBLoader implements CommandLineRunner {
 	BookingRepository bookingRepository;
 	DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss aa");
 
+	
 	public DBLoader(UserRepository userRepository, FloorRepository floorRepository,
 			BuildingRepository buildingRepository, MeetingRoomRepository meetingRoomRepository,
 			BookingRepository bookingRepository) {
@@ -43,10 +44,12 @@ public class DBLoader implements CommandLineRunner {
 
 	}
 
+	
 	@Override
 	public void run(String... args) throws Exception {
 
 		// MEETING ROOMS
+		
 		MeetingRoom room1 = new MeetingRoom();
 		room1.setName("Lily");
 		room1.setCapacity(10);
@@ -126,5 +129,6 @@ public class DBLoader implements CommandLineRunner {
 		bookingRepository.save(bookingLotus);
 		
 	}
+
 
 }
